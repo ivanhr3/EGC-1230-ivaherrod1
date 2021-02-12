@@ -75,6 +75,18 @@ MODULES = [
 
 BASEURL = 'https://examenfebrero.herokuapp.com/'
 
+APIS = {
+    'authentication': BASEURL ,
+    'base': BASEURL ,
+    'booth': BASEURL ,
+    'census': BASEURL ,
+    'mixnet': BASEURL ,
+    'postproc': BASEURL ,
+    'store': BASEURL ,
+    'visualizer': BASEURL ,
+    'voting': BASEURL ,
+    }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -160,6 +172,14 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = ''
+STATIC_TMP = os.path.join(BASE_DIR, 'static')
+
+os.makedirs(STATIC_TMP, exist_ok=True)
+
+STATICFILES_DIRS = (
+    'static',
+)
 
 # number of bits for the key, all auths should use the same number of bits
 KEYBITS = 256
@@ -183,3 +203,6 @@ if os.path.exists("config.jsonnet"):
 
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
+
+import django_heroku
+django_heroku.settings(locals())
